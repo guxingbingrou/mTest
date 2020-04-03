@@ -1,0 +1,1 @@
+cmd_/home/zou/mTest/moduleTest/enc_fb/enc_fb.ko := ld -r -m elf_x86_64  -z max-page-size=0x200000 -T ./scripts/module-common.lds --build-id  -o /home/zou/mTest/moduleTest/enc_fb/enc_fb.ko /home/zou/mTest/moduleTest/enc_fb/enc_fb.o /home/zou/mTest/moduleTest/enc_fb/enc_fb.mod.o ;  true
