@@ -3,10 +3,11 @@
 #include <string.h>
 #include <errno.h>
 #include <sys/types.h>
+#include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 
-#define MAXLINE 4096
+#define MAXLINE 40960
 
 int main(int argc, char** argv){
     int sockfd, n;
@@ -35,13 +36,17 @@ int main(int argc, char** argv){
         printf("connect error: %s(errno: %d)\n",strerror(errno),errno);
 	exit(0);
     }
-
     printf("send msg to server: \n");
-    fgets(sendline, MAXLINE, stdin);
-    if(send(sockfd, sendline, strlen(sendline), 0) < 0){
-        printf("connect error: %s(errno: %d)\n",strerror(errno),errno);
-	exit(0);
+    memset(sendline, 0, MAXLINE);
+    strcpy(sendline, "hello world!");
+    for(int count=0; count < 100; count++){
+    	if(send(sockfd, sendline, strlen(sendline), 0) < 0){
+    	    printf("connect error: %s(errno: %d)\n",strerror(errno),errno);
+    	    exit(0);
+    	}
+	sleep(1);
     }
+    printf("send ok\n");
     close(sockfd);
     exit(0);
 }

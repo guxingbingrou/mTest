@@ -29,7 +29,7 @@ int main(int argc, char** argv){
 	exit(0);
     }
 
-    if(!listen(listenfd, 10) == -1){
+    if(listen(listenfd, 10) == -1){
         printf("listen socket error: %s(errno: %d)\n",strerror(errno),errno);
 	exit(0);
     }

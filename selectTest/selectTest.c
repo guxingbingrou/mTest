@@ -29,7 +29,7 @@ int main(int argc, char** argv){
     FD_SET(server_socketfd, &readfds);
 
     while(1){
-        char ch;
+        char readBuffer[1024] = {0};
 	int fd;
 	int nread;
 	testfds = readfds;
@@ -64,8 +64,8 @@ int main(int argc, char** argv){
 		    }
 		    else{
 			printf("nread: %d\n", nread);
-		        read(fd, &ch, 1);
-			printf("data: %c\n", ch);
+		        int size = read(fd, readBuffer, nread > 1023 ? 1023 : nread);
+			printf("data: %s\n", readBuffer);
 			printf("serving client on fd: %d\n", fd);
 		    }
 		}
